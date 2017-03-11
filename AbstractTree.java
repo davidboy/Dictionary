@@ -1,4 +1,4 @@
-public abstract class BinaryTree<K extends Comparable<K>, V> {
+public abstract class AbstractTree<K extends Comparable<K>, V> {
     private BinaryTreeNode<K, V> head;
 
     abstract protected BinaryTreeNode<K, V> createNode(K key, V value, boolean isRoot);

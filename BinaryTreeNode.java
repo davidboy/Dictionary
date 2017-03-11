@@ -2,9 +2,9 @@
  * @author David Reed
  */
 public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
-    protected BinaryTree<K, V> tree;
+    protected AbstractTree<K, V> tree;
 
-    public BinaryTreeNode(BinaryTree<K, V> tree) {
+    public BinaryTreeNode(AbstractTree<K, V> tree) {
         this.tree = tree;
     }
 
