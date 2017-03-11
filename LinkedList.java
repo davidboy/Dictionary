@@ -27,6 +27,13 @@ public class LinkedList<E> implements Iterable<E> {
         }
     }
 
+    public static <T> LinkedList<T> containing(T value) {
+        LinkedList<T> result = new LinkedList<>();
+        result.add(value);
+
+        return result;
+    }
+
     @Override
     public Iterator<E> iterator() {
         if (head == null) {

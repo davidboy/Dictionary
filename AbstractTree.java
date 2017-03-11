@@ -28,6 +28,37 @@ public abstract class AbstractTree<K extends Comparable<K>, V> {
         return null;
     }
 
+    public LinkedList<Entry<K, V>> getItemsBetween(K start, K end) {
+        LinkedList<Entry<K, V>> results = new LinkedList<>();
+
+        Stack<BinaryTreeNode<K, V>> nodesToSearch = new Stack<>();
+
+        for (BinaryTreeNode<K, V> node = head; node != null; node = nodesToSearch.pop()) {
+            K nodeKey = node.getKey();
+
+            int nodeVsStart = nodeKey.compareTo(start);
+            int nodeVsEnd = nodeKey.compareTo(end);
+
+            if (nodeVsStart >= 0 && nodeVsEnd <= 0) {
+                results.add(new Entry<>(nodeKey, node.getValue()));
+
+                if (nodeVsStart != 0 && node.hasLeftChild()) {
+                    nodesToSearch.push(node.getLeftChild());
+                }
+
+                if (nodeVsEnd != 0 && node.hasRightChild()) {
+                    nodesToSearch.push(node.getRightChild());
+                }
+            } else if (nodeVsStart < 0 && node.hasRightChild()) {
+                nodesToSearch.push(node.getRightChild());
+            } else if (nodeVsEnd > 0 && node.hasLeftChild()) {
+                nodesToSearch.push(node.getLeftChild());
+            }
+        }
+
+        return results;
+    }
+
     abstract protected String getName();
 
     public void printDebugView() {

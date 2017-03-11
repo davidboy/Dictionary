@@ -110,14 +110,6 @@ public class RedBlackTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTr
         return !isHead() && !getParent().isHead();
     }
 
-    private void rotateToRaise(BinaryTreeNode<K, V> n) {
-        if (n.isLeftChild()) {
-            rotateRight();
-        } else {
-            rotateLeft();
-        }
-    }
-
     @Override
     protected String getDebugDescription() {
         return super.getDebugDescription() + " (" + (isRed ? "red" : "black") + ")";

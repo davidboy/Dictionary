@@ -2,23 +2,32 @@
  * @author David Reed
  */
 public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
-    protected AbstractTree<K, V> tree;
+    private AbstractTree<K, V> tree;
 
-    public BinaryTreeNode(AbstractTree<K, V> tree) {
+    protected BinaryTreeNode(AbstractTree<K, V> tree) {
         this.tree = tree;
-    }
-
-    abstract public boolean hasLeftChild();
-    abstract public boolean hasRightChild();
-
-    abstract public boolean isHead();
-    protected void makeHead() {
-        tree.setHead(this);
     }
 
     abstract public BinaryTreeNode<K, V> getParent();
     abstract public BinaryTreeNode<K, V> getLeftChild();
     abstract public BinaryTreeNode<K, V> getRightChild();
+
+    abstract public boolean hasLeftChild();
+    abstract public boolean hasRightChild();
+
+    abstract protected void setLeftChild(BinaryTreeNode<K, V> node);
+    abstract protected void setRightChild(BinaryTreeNode<K, V> node);
+
+    abstract public boolean isLeftChild();
+    abstract public boolean isRightChild();
+
+    abstract public K getKey();
+    abstract public V getValue();
+
+    abstract public boolean isHead();
+    protected void makeHead() {
+        tree.setHead(this);
+    }
 
     public void addChild(BinaryTreeNode<K, V> node) {
         if (node.getKey().compareTo(this.getKey()) <= 0) {
@@ -44,16 +53,15 @@ public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
         }
     }
 
-    abstract protected void setRightChild(BinaryTreeNode<K, V> node);
-    abstract protected void setLeftChild(BinaryTreeNode<K, V> node);
+    protected void rotateToRaise(BinaryTreeNode<K, V> n) {
+        if (n.isLeftChild()) {
+            rotateRight();
+        } else {
+            rotateLeft();
+        }
+    }
 
-    abstract public K getKey();
-    abstract public V getValue();
-
-    abstract public boolean isRightChild();
-    abstract public boolean isLeftChild();
-
-    public void rotateRight() {
+    private void rotateRight() {
         assert hasLeftChild();
 
         if (isHead()) {
@@ -71,7 +79,7 @@ public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
         this.setLeftChild(temp);
     }
 
-    public void rotateLeft() {
+    private void rotateLeft() {
         assert hasRightChild();
 
         if (isHead()) {
@@ -93,10 +101,6 @@ public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
         printDebugView(0);
     }
 
-    protected String getDebugDescription() {
-        return getKey().toString();
-    }
-
     private void printDebugView(int level) {
         for (int i = 0; i < level; i++) {
             System.out.print("\t");
@@ -111,6 +115,10 @@ public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
         if (hasRightChild()) {
             getRightChild().printDebugView(level + 1);
         }
+    }
+
+    protected String getDebugDescription() {
+        return getKey().toString();
     }
 
     @Override
