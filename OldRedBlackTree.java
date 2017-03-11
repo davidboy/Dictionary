@@ -164,7 +164,11 @@ public class OldRedBlackTree<K extends Comparable<K>, V> implements OldBinaryTre
                 head = left;
                 left.parent = null;
             } else {
-                parent.setLeftChild(left);
+                if (isLeftChild()) {
+                    parent.setLeftChild(left);
+                } else {
+                    parent.setRightChild(left);
+                }
             }
 
             Node temp = left.right;
@@ -179,7 +183,11 @@ public class OldRedBlackTree<K extends Comparable<K>, V> implements OldBinaryTre
                 head = right;
                 right.parent = null;
             } else {
-                parent.setRightChild(right);
+                if (isLeftChild()) {
+                    parent.setLeftChild(right);
+                } else {
+                    parent.setRightChild(right);
+                }
             }
 
             Node temp = right.left;
@@ -244,7 +252,7 @@ public class OldRedBlackTree<K extends Comparable<K>, V> implements OldBinaryTre
     public static void main(String[] args) {
         OldRedBlackTree<Integer, Integer> tree = new OldRedBlackTree<>();
 
-        for (int i = 1; i <= 18; i++) {
+        for (int i : new int[]{2, 79, 83, 67, 14, 90, 23, 87}) {
             tree.put(i, i);
         }
 

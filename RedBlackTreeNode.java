@@ -4,8 +4,8 @@
 public class RedBlackTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTreeNode<K, V> {
     private boolean isRed = true;
 
-    public RedBlackTreeNode(K key, V value, boolean isRed) {
-        super(key, value);
+    public RedBlackTreeNode(K key, V value, RedBlackTree<K, V> tree, boolean isRed) {
+        super(key, value, tree);
 
         this.isRed = isRed;
     }
@@ -18,17 +18,21 @@ public class RedBlackTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTr
     }
 
     @Override
-    public void setLeftChild(BinaryTreeNode<K, V> node) {
-        super.setLeftChild(node);
+    public void setLeftChild(BinaryTreeNode<K, V> childNode) {
+        super.setLeftChild(childNode);
 
-        checkForRedRed();
+        if (childNode != null) {
+            ((RedBlackTreeNode<K, V>) childNode).checkForRedRed();
+        }
     }
 
     @Override
-    public void setRightChild(BinaryTreeNode<K, V> node) {
-        super.setRightChild(node);
+    public void setRightChild(BinaryTreeNode<K, V> childNode) {
+        super.setRightChild(childNode);
 
-        checkForRedRed();
+        if (childNode != null) {
+            ((RedBlackTreeNode<K, V>) childNode).checkForRedRed();
+        }
     }
 
     private void flipIfNecessary() {
@@ -58,6 +62,9 @@ public class RedBlackTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTr
     private void toggleColor() {
         isRed = !isRed;
     }
+    public void makeBlack() {
+        isRed = false;
+    }
 
     private void checkForRedRed() {
         if (!hasGrandparent()) {
@@ -80,8 +87,8 @@ public class RedBlackTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTr
         } else {
             toggleColor();
 
-            ((RedBlackTreeNode<K, V>) getParent()).rotateToRaise(this);
-            ((RedBlackTreeNode<K, V>) getParent()).rotateToRaise(this);
+            parent.rotateToRaise(this);
+            grandparent.rotateToRaise(this);
         }
     }
 

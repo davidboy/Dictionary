@@ -2,11 +2,19 @@
  * @author David Reed
  */
 public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
+    protected BinaryTree<K, V> tree;
+
+    public BinaryTreeNode(BinaryTree<K, V> tree) {
+        this.tree = tree;
+    }
+
     abstract public boolean hasLeftChild();
     abstract public boolean hasRightChild();
 
     abstract public boolean isHead();
-    abstract protected void makeHead();
+    protected void makeHead() {
+        tree.setHead(this);
+    }
 
     abstract public BinaryTreeNode<K, V> getParent();
     abstract public BinaryTreeNode<K, V> getLeftChild();
@@ -51,7 +59,11 @@ public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
         if (isHead()) {
             getLeftChild().makeHead();
         } else {
-            getParent().setLeftChild(getLeftChild());
+            if (isLeftChild()) {
+                getParent().setLeftChild(getLeftChild());
+            } else {
+                getParent().setRightChild(getLeftChild());
+            }
         }
 
         BinaryTreeNode<K, V> temp = getLeftChild().getRightChild();
@@ -65,7 +77,11 @@ public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
         if (isHead()) {
             getRightChild().makeHead();
         } else {
-            getParent().setRightChild(getLeftChild());
+            if (isLeftChild()) {
+                getParent().setLeftChild(getRightChild());
+            } else {
+                getParent().setRightChild(getRightChild());
+            }
         }
 
         BinaryTreeNode<K, V> temp = getRightChild().getLeftChild();
@@ -95,5 +111,10 @@ public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
         if (hasRightChild()) {
             getRightChild().printDebugView(level + 1);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "<Node " + getValue() + ">";
     }
 }

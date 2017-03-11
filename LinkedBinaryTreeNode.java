@@ -8,7 +8,9 @@ public class LinkedBinaryTreeNode<K extends Comparable<K>, V> extends BinaryTree
     private K key;
     private V value;
 
-    public LinkedBinaryTreeNode(K key, V value) {
+    public LinkedBinaryTreeNode(K key, V value, BinaryTree<K, V> tree) {
+        super(tree);
+
         this.key = key;
         this.value = value;
     }
@@ -45,35 +47,30 @@ public class LinkedBinaryTreeNode<K extends Comparable<K>, V> extends BinaryTree
 
     @Override
     protected void makeHead() {
-        // TODO: set head in containing tree
+        super.makeHead();
+
         parent = null;
     }
 
     @Override
-    protected void setRightChild(BinaryTreeNode<K, V> node) {
-        if (node != null) {
-            assert node instanceof LinkedBinaryTreeNode;
+    protected void setRightChild(BinaryTreeNode<K, V> childNode) {
+        if (childNode != null) {
+            assert childNode instanceof LinkedBinaryTreeNode;
         }
 
-        LinkedBinaryTreeNode<K, V> childNode = (LinkedBinaryTreeNode<K, V>) node;
-        rightChild = childNode;
+        rightChild = (LinkedBinaryTreeNode<K, V>) childNode;
 
-        if (childNode != null) {
-            childNode.parent = this;
+        if (rightChild != null) {
+            rightChild.parent = this;
         }
     }
 
     @Override
-    protected void setLeftChild(BinaryTreeNode<K, V> node) {
-        if (node != null) {
-            assert node instanceof LinkedBinaryTreeNode;
-        }
+    protected void setLeftChild(BinaryTreeNode<K, V> childNode) {
+        leftChild = (LinkedBinaryTreeNode<K, V>) childNode;
 
-        LinkedBinaryTreeNode<K, V> childNode = (LinkedBinaryTreeNode<K, V>) node;
-        leftChild = childNode;
-
-        if (childNode != null) {
-            childNode.parent = this;
+        if (leftChild != null) {
+            leftChild.parent = this;
         }
     }
 

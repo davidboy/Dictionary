@@ -38,6 +38,10 @@ public abstract class BinaryTree<K extends Comparable<K>, V> {
         }
     }
 
+    protected void setHead(BinaryTreeNode<K, V> head) {
+        this.head = head;
+    }
+
     protected BinaryTreeNode<K, V> getHead() {
         return head;
     }
