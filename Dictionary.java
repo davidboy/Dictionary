@@ -5,7 +5,7 @@ public class Dictionary {
     private Set<String> words;
     private AbstractTree<String, LinkedList<String>> definitions;
 
-    public Dictionary(String type) {
+    public Dictionary(String type) throws InvalidTreeException {
         words = new Set<>();
         definitions = buildTree(type);
     }
@@ -33,12 +33,15 @@ public class Dictionary {
         return words.toList();
     }
 
-    public LinkedList<String> getWordsBetween(String beginning, String end) {
-        // TODO: write
-        return null;
+    public LinkedList<Entry<String, LinkedList<String>>> getWordsBetween(String beginning, String end) {
+        return definitions.getItemsBetween(beginning, end);
     }
 
-    private AbstractTree<String, LinkedList<String>> buildTree(String type) {
+    public void dumpTree() {
+        definitions.printDebugView();
+    }
+
+    private AbstractTree<String, LinkedList<String>> buildTree(String type) throws InvalidTreeException {
         switch (type) {
             case "BST":
                 return new BinarySearchTree<>();
@@ -46,11 +49,6 @@ public class Dictionary {
                 return new RedBlackTree<>();
         }
 
-        // TODO: handle error better
-        throw new RuntimeException("NOPE");
-    }
-
-    public static void main(String[] args) {
-
+        throw new InvalidTreeException();
     }
 }
