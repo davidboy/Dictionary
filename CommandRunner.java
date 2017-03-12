@@ -66,6 +66,12 @@ public class CommandRunner {
         displayDefinitions(word, dictionary.getDefinitions(word));
     }
 
+    private void displayDefinitions(LinkedList<Entry<String, LinkedList<String>>> entries) {
+        for (Entry<String, LinkedList<String>> entry : entries) {
+            displayDefinitions(entry.getKey(), entry.getValue());
+        }
+    }
+
     private void displayDefinitions(String word, LinkedList<String> definitions) {
         if (definitions == null) {
             System.out.println("Error: no definitions found for " + word);
@@ -90,16 +96,9 @@ public class CommandRunner {
 
     private void processListCommand(String[] commandParts) throws InvalidCommandException {
         if (commandParts.length == 1) {
-            for (String word : dictionary.getWords()) {
-                displayDefinitions(word);
-            }
+            displayDefinitions(dictionary.getWords());
         } else if (commandParts.length == 3) {
-            String start = commandParts[1];
-            String end = commandParts[2];
-
-            for (Entry<String, LinkedList<String>> entry : dictionary.getWordsBetween(start, end)) {
-                displayDefinitions(entry.getKey(), entry.getValue());
-            }
+            displayDefinitions(dictionary.getWordsBetween(commandParts[1], commandParts[2]));
         } else {
             throw new InvalidCommandException();
         }

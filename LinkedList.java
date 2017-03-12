@@ -68,6 +68,20 @@ public class LinkedList<E> implements Iterable<E> {
         tail.next = new Node(element);
     }
 
+    public void add(LinkedList<E> otherList) {
+        if (head == null) {
+            head = otherList.head;
+            return;
+        }
+
+        Node tail = head;
+        while (tail.next != null) {
+            tail = tail.next;
+        }
+
+        tail.next = otherList.head;
+    }
+
     public int length() {
         int length = 0;
         for (E ignored : this) {

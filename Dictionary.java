@@ -6,35 +6,36 @@ public class Dictionary {
     private AbstractTree<String, LinkedList<String>> definitions;
 
     public Dictionary(String type) throws InvalidTreeException {
-        words = new Set<>();
         definitions = buildTree(type);
     }
 
     public void addDefinition(String word, String newDefinition) {
-        if (words.contains(word)) {
-            for (String existingDefinition : getDefinitions(word)) {
-                if (existingDefinition.equals(newDefinition)) {
-                    return;
-                }
-            }
+        LinkedList<String> existingDefinitions = definitions.get(word);
 
-            getDefinitions(word).add(newDefinition);
-        } else {
-            words.add(word);
+        if (existingDefinitions == null) {
             definitions.put(word, LinkedList.containing(newDefinition));
+            return;
         }
+
+        for (String existingDefinition : existingDefinitions) {
+            if (existingDefinition.equals(newDefinition)) {
+                return;
+            }
+        }
+
+        existingDefinitions.add(newDefinition);
     }
 
     public LinkedList<String> getDefinitions(String word) {
         return definitions.get(word);
     }
 
-    public LinkedList<String> getWords() {
-        return words.toList();
+    public LinkedList<Entry<String, LinkedList<String>>> getWords() {
+        return definitions.getEntries();
     }
 
     public LinkedList<Entry<String, LinkedList<String>>> getWordsBetween(String beginning, String end) {
-        return definitions.getItemsBetween(beginning, end);
+        return definitions.getEntriesBetween(beginning, end);
     }
 
     public void dumpTree() {
