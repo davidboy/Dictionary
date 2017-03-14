@@ -21,36 +21,39 @@ public class CommandRunner {
                 try {
                     processCommand(line);
                 } catch (InvalidCommandException e) {
-                    System.out.println("Error: invalid command encountered.  Ignoring...");
+                    System.out.println("Error: invalid command encountered.");
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Error: input file " + fileLocation + " not found.  Continuing to next file...");
+            System.out.println("Error: input file " + fileLocation + " not found.");
         } catch (IOException e) {
-            System.out.println("Error reading from input file " + fileLocation + ".  Skipping to next file...");
+            System.out.println("Error reading from input file " + fileLocation + ".");
         }
     }
 
     public void processCommand(String command) throws InvalidCommandException, AppQuitException {
         String[] parts = command.split(" ");
 
-        switch (parts[0]) {
-            case "Add":
+        switch (parts[0].toLowerCase()) {
+            case "add":
                 processAddCommand(parts);
                 break;
-            case "Find":
+            case "find":
                 processFindCommand(parts);
                 break;
-            case "List":
+            case "list":
                 processListCommand(parts);
                 break;
-            case "Load":
+            case "load":
                 processLoadCommand(parts);
                 break;
-            case "Tree":
+            case "tree":
                 dictionary.dumpTree();
                 break;
-            case "Quit":
+            case "help":
+                printHelp();
+                break;
+            case "quit":
                 throw new AppQuitException();
         }
     }
@@ -112,5 +115,17 @@ public class CommandRunner {
         for (int i = 1; i < commandParts.length; i++) {
             processCommandFile(commandParts[i]);
         }
+    }
+
+    private void printHelp() {
+        System.out.println("Commands available: ");
+
+        System.out.println("\tadd <word> <definition>");
+        System.out.println("\tfind <word>");
+        System.out.println("\tlist");
+        System.out.println("\tlist <begin word> <end word>");
+        System.out.println("\tload <file name>");
+        System.out.println("\ttree");
+        System.out.println("\tquit");
     }
 }

@@ -2,7 +2,6 @@
  * @author David Reed
  */
 public class Dictionary {
-    private Set<String> words;
     private AbstractTree<String, LinkedList<String>> definitions;
 
     public Dictionary(String type) throws InvalidTreeException {

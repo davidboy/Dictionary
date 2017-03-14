@@ -34,13 +34,12 @@ public class Main {
         System.out.println("Done processing command files.  Enter custom commands:");
         Scanner consoleInput = new Scanner(System.in);
         while (true) {
-
             System.out.print("> ");
 
             try {
                 commandParser.processCommand(consoleInput.nextLine());
             } catch (InvalidCommandException e) {
-                System.out.println("Error: invalid command encountered.  Ignoring...");
+                System.out.println("Error: invalid command encountered.");
             } catch (AppQuitException | NoSuchElementException e) {
                 return;
             }
