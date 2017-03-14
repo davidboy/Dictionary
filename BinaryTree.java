@@ -1,4 +1,4 @@
-public abstract class AbstractTree<K extends Comparable<K>, V> {
+public abstract class BinaryTree<K extends Comparable<K>, V> {
     private BinaryTreeNode<K, V> head;
 
     abstract protected BinaryTreeNode<K, V> createNode(K key, V value, boolean isRoot);
@@ -12,20 +12,11 @@ public abstract class AbstractTree<K extends Comparable<K>, V> {
     }
 
     public V get(K desiredKey) {
-        BinaryTreeNode<K, V> currentNode = head;
-        while (currentNode != null) {
-            if (currentNode.getKey().equals(desiredKey)) {
-                return currentNode.getValue();
-            }
-
-            if (desiredKey.compareTo(currentNode.getKey()) <= 0) {
-                currentNode = currentNode.getLeftChild();
-            } else {
-                currentNode = currentNode.getRightChild();
-            }
+        if (head == null) {
+            return null;
         }
 
-        return null;
+        return head.findValue(desiredKey);
     }
 
     public LinkedList<Entry<K, V>> getEntries() {

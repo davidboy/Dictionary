@@ -2,9 +2,9 @@
  * @author David Reed
  */
 public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
-    private AbstractTree<K, V> tree;
+    private BinaryTree<K, V> tree;
 
-    protected BinaryTreeNode(AbstractTree<K, V> tree) {
+    protected BinaryTreeNode(BinaryTree<K, V> tree) {
         this.tree = tree;
     }
 
@@ -27,6 +27,20 @@ public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
     abstract public boolean isHead();
     protected void makeHead() {
         tree.setHead(this);
+    }
+
+    public V findValue(K key) {
+        if (getKey().equals(key)) {
+            return getValue();
+        }
+
+        if (hasLeftChild() && key.compareTo(getKey()) <= 0) {
+            return getLeftChild().findValue(key);
+        } else if (hasRightChild() && key.compareTo(getKey()) > 0) {
+            return getRightChild().findValue(key);
+        }
+
+        return null;
     }
 
     public void addChild(BinaryTreeNode<K, V> node) {

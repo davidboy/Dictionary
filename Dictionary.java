@@ -2,7 +2,7 @@
  * @author David Reed
  */
 public class Dictionary {
-    private AbstractTree<String, LinkedList<String>> definitions;
+    private BinaryTree<String, LinkedList<String>> definitions;
 
     public Dictionary(String type) throws InvalidTreeException {
         definitions = buildTree(type);
@@ -41,7 +41,7 @@ public class Dictionary {
         definitions.printDebugView();
     }
 
-    private AbstractTree<String, LinkedList<String>> buildTree(String type) throws InvalidTreeException {
+    private BinaryTree<String, LinkedList<String>> buildTree(String type) throws InvalidTreeException {
         switch (type) {
             case "BST":
                 return new BinarySearchTree<>();

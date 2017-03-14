@@ -8,7 +8,7 @@ public class LinkedBinaryTreeNode<K extends Comparable<K>, V> extends BinaryTree
     private K key;
     private V value;
 
-    public LinkedBinaryTreeNode(K key, V value, AbstractTree<K, V> tree) {
+    public LinkedBinaryTreeNode(K key, V value, BinaryTree<K, V> tree) {
         super(tree);
 
         this.key = key;

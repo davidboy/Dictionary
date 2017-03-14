@@ -1,7 +1,7 @@
 /**
  * @author David Reed
  */
-public class RedBlackTree<K extends Comparable<K>, V> extends AbstractTree<K, V> {
+public class RedBlackTree<K extends Comparable<K>, V> extends BinaryTree<K, V> {
     @Override
     protected BinaryTreeNode<K, V> createNode(K key, V value, boolean isRoot) {
         return new RedBlackTreeNode<>(key, value, this, !isRoot);
