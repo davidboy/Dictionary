@@ -29,6 +29,26 @@ public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
         tree.setHead(this);
     }
 
+    protected int getHeight() {
+        return Math.max(getLeftChildHeight(), getRightChildHeight()) + 1;
+    }
+
+    protected int getLeftChildHeight() {
+        if (hasLeftChild()) {
+            return getLeftChild().getHeight();
+        } else {
+            return 0;
+        }
+    }
+
+    protected int getRightChildHeight() {
+        if (hasRightChild()) {
+            return getRightChild().getHeight();
+        } else {
+            return 0;
+        }
+    }
+
     public V findValue(K key) {
         if (getKey().equals(key)) {
             return getValue();
@@ -75,7 +95,7 @@ public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
         }
     }
 
-    private void rotateRight() {
+    protected void rotateRight() {
         assert hasLeftChild();
 
         if (isHead()) {
@@ -93,7 +113,7 @@ public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
         this.setLeftChild(temp);
     }
 
-    private void rotateLeft() {
+    protected void rotateLeft() {
         assert hasRightChild();
 
         if (isHead()) {

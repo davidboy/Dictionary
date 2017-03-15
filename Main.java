@@ -50,6 +50,7 @@ public class Main {
         System.out.println("Valid trees: ");
         System.out.println("\tBST - Binary Search Tree");
         System.out.println("\t RB - Red Black Tree");
+        System.out.println("\t AVL - AVL Tree");
     }
 
     public static void main(String[] args) {

@@ -47,6 +47,8 @@ public class Dictionary {
                 return new BinarySearchTree<>();
             case "RB":
                 return new RedBlackTree<>();
+            case "AVL":
+                return new AVLTree<>();
         }
 
         throw new InvalidTreeException();

@@ -54,10 +54,6 @@ public class LinkedBinaryTreeNode<K extends Comparable<K>, V> extends BinaryTree
 
     @Override
     protected void setRightChild(BinaryTreeNode<K, V> childNode) {
-        if (childNode != null) {
-            assert childNode instanceof LinkedBinaryTreeNode;
-        }
-
         rightChild = (LinkedBinaryTreeNode<K, V>) childNode;
 
         if (rightChild != null) {
