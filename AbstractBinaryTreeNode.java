@@ -1,22 +1,22 @@
 /**
  * @author David Reed
  */
-public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
-    private BinaryTree<K, V> tree;
+public abstract class AbstractBinaryTreeNode<K extends Comparable<K>, V> {
+    private AbstractBinaryTree<K, V> tree;
 
-    protected BinaryTreeNode(BinaryTree<K, V> tree) {
+    protected AbstractBinaryTreeNode(AbstractBinaryTree<K, V> tree) {
         this.tree = tree;
     }
 
-    abstract public BinaryTreeNode<K, V> getParent();
-    abstract public BinaryTreeNode<K, V> getLeftChild();
-    abstract public BinaryTreeNode<K, V> getRightChild();
+    abstract public AbstractBinaryTreeNode<K, V> getParent();
+    abstract public AbstractBinaryTreeNode<K, V> getLeftChild();
+    abstract public AbstractBinaryTreeNode<K, V> getRightChild();
 
     abstract public boolean hasLeftChild();
     abstract public boolean hasRightChild();
 
-    abstract protected void setLeftChild(BinaryTreeNode<K, V> node);
-    abstract protected void setRightChild(BinaryTreeNode<K, V> node);
+    abstract protected void setLeftChild(AbstractBinaryTreeNode<K, V> node);
+    abstract protected void setRightChild(AbstractBinaryTreeNode<K, V> node);
 
     abstract public boolean isLeftChild();
     abstract public boolean isRightChild();
@@ -63,7 +63,7 @@ public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
         return null;
     }
 
-    public void addChild(BinaryTreeNode<K, V> node) {
+    public void addChild(AbstractBinaryTreeNode<K, V> node) {
         if (node.getKey().compareTo(this.getKey()) <= 0) {
             addLeftChild(node);
         } else {
@@ -71,7 +71,7 @@ public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
         }
     }
 
-    public void addLeftChild(BinaryTreeNode<K, V> node) {
+    public void addLeftChild(AbstractBinaryTreeNode<K, V> node) {
         if (hasLeftChild()) {
             getLeftChild().addChild(node);
         } else {
@@ -79,7 +79,7 @@ public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
         }
     }
 
-    public void addRightChild(BinaryTreeNode<K, V> node) {
+    public void addRightChild(AbstractBinaryTreeNode<K, V> node) {
         if (hasRightChild()) {
             getRightChild().addChild(node);
         } else {
@@ -87,7 +87,7 @@ public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
         }
     }
 
-    protected void rotateToRaise(BinaryTreeNode<K, V> n) {
+    protected void rotateToRaise(AbstractBinaryTreeNode<K, V> n) {
         if (n.isLeftChild()) {
             rotateRight();
         } else {
@@ -108,7 +108,7 @@ public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
             }
         }
 
-        BinaryTreeNode<K, V> temp = getLeftChild().getRightChild();
+        AbstractBinaryTreeNode<K, V> temp = getLeftChild().getRightChild();
         getLeftChild().setRightChild(this);
         this.setLeftChild(temp);
     }
@@ -126,7 +126,7 @@ public abstract class BinaryTreeNode<K extends Comparable<K>, V> {
             }
         }
 
-        BinaryTreeNode<K, V> temp = getRightChild().getLeftChild();
+        AbstractBinaryTreeNode<K, V> temp = getRightChild().getLeftChild();
         getRightChild().setLeftChild(this);
         this.setRightChild(temp);
     }

@@ -11,14 +11,14 @@ public class RedBlackTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTr
     }
 
     @Override
-    public void addChild(BinaryTreeNode<K, V> node) {
+    public void addChild(AbstractBinaryTreeNode<K, V> node) {
         flipIfNecessary();
 
         super.addChild(node);
     }
 
     @Override
-    public void setLeftChild(BinaryTreeNode<K, V> childNode) {
+    public void setLeftChild(AbstractBinaryTreeNode<K, V> childNode) {
         super.setLeftChild(childNode);
 
         if (childNode != null) {
@@ -27,7 +27,7 @@ public class RedBlackTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTr
     }
 
     @Override
-    public void setRightChild(BinaryTreeNode<K, V> childNode) {
+    public void setRightChild(AbstractBinaryTreeNode<K, V> childNode) {
         super.setRightChild(childNode);
 
         if (childNode != null) {
@@ -93,7 +93,7 @@ public class RedBlackTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTr
     }
 
     private boolean isOutsideGrandchild() {
-        BinaryTreeNode<K, V> grandparent = getParent().getParent();
+        AbstractBinaryTreeNode<K, V> grandparent = getParent().getParent();
 
         if (grandparent.hasLeftChild() && grandparent.getLeftChild().getLeftChild() == this) {
             return true;

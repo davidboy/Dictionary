@@ -1,9 +1,9 @@
 /**
  * @author David Reed
  */
-public class AVLTree <K extends Comparable<K>, V> extends BinaryTree<K, V> {
+public class AVLTree <K extends Comparable<K>, V> extends AbstractBinaryTree<K, V> {
     @Override
-    protected BinaryTreeNode<K, V> createNode(K key, V value, boolean isRoot) {
+    protected AbstractBinaryTreeNode<K, V> createNode(K key, V value, boolean isRoot) {
         return new AVLTreeNode<>(key, value, this);
     }
 

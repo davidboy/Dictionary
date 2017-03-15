@@ -1,14 +1,14 @@
 /**
  * @author David Reed
  */
-public class LinkedBinaryTreeNode<K extends Comparable<K>, V> extends BinaryTreeNode<K, V> {
+public class LinkedBinaryTreeNode<K extends Comparable<K>, V> extends AbstractBinaryTreeNode<K, V> {
     private LinkedBinaryTreeNode<K, V> parent;
     private LinkedBinaryTreeNode<K, V> leftChild, rightChild;
 
     private K key;
     private V value;
 
-    public LinkedBinaryTreeNode(K key, V value, BinaryTree<K, V> tree) {
+    public LinkedBinaryTreeNode(K key, V value, AbstractBinaryTree<K, V> tree) {
         super(tree);
 
         this.key = key;
@@ -26,17 +26,17 @@ public class LinkedBinaryTreeNode<K extends Comparable<K>, V> extends BinaryTree
     }
 
     @Override
-    public BinaryTreeNode<K, V> getLeftChild() {
+    public AbstractBinaryTreeNode<K, V> getLeftChild() {
         return leftChild;
     }
 
     @Override
-    public BinaryTreeNode<K, V> getRightChild() {
+    public AbstractBinaryTreeNode<K, V> getRightChild() {
         return rightChild;
     }
 
     @Override
-    public BinaryTreeNode<K, V> getParent() {
+    public AbstractBinaryTreeNode<K, V> getParent() {
         return parent;
     }
 
@@ -53,7 +53,7 @@ public class LinkedBinaryTreeNode<K extends Comparable<K>, V> extends BinaryTree
     }
 
     @Override
-    protected void setRightChild(BinaryTreeNode<K, V> childNode) {
+    protected void setRightChild(AbstractBinaryTreeNode<K, V> childNode) {
         rightChild = (LinkedBinaryTreeNode<K, V>) childNode;
 
         if (rightChild != null) {
@@ -62,7 +62,7 @@ public class LinkedBinaryTreeNode<K extends Comparable<K>, V> extends BinaryTree
     }
 
     @Override
-    protected void setLeftChild(BinaryTreeNode<K, V> childNode) {
+    protected void setLeftChild(AbstractBinaryTreeNode<K, V> childNode) {
         leftChild = (LinkedBinaryTreeNode<K, V>) childNode;
 
         if (leftChild != null) {

@@ -1,7 +1,7 @@
-public abstract class BinaryTree<K extends Comparable<K>, V> {
-    private BinaryTreeNode<K, V> head;
+public abstract class AbstractBinaryTree<K extends Comparable<K>, V> {
+    private AbstractBinaryTreeNode<K, V> head;
 
-    abstract protected BinaryTreeNode<K, V> createNode(K key, V value, boolean isRoot);
+    abstract protected AbstractBinaryTreeNode<K, V> createNode(K key, V value, boolean isRoot);
 
     public void put(K key, V value) {
         if (head == null) {
@@ -45,11 +45,11 @@ public abstract class BinaryTree<K extends Comparable<K>, V> {
         }
     }
 
-    protected void setHead(BinaryTreeNode<K, V> head) {
+    protected void setHead(AbstractBinaryTreeNode<K, V> head) {
         this.head = head;
     }
 
-    protected BinaryTreeNode<K, V> getHead() {
+    protected AbstractBinaryTreeNode<K, V> getHead() {
         return head;
     }
 }

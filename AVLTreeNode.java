@@ -2,12 +2,12 @@
  * @author David Reed
  */
 public class AVLTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTreeNode<K, V> {
-    public AVLTreeNode(K key, V value, BinaryTree<K, V> tree) {
+    public AVLTreeNode(K key, V value, AbstractBinaryTree<K, V> tree) {
         super(key, value, tree);
     }
 
     @Override
-    public void addLeftChild(BinaryTreeNode<K, V> node) {
+    public void addLeftChild(AbstractBinaryTreeNode<K, V> node) {
         if (hasLeftChild()) {
             super.addLeftChild(node);
             return;
@@ -21,7 +21,7 @@ public class AVLTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTreeNod
     }
 
     @Override
-    public void addRightChild(BinaryTreeNode<K, V> node) {
+    public void addRightChild(AbstractBinaryTreeNode<K, V> node) {
         if (hasRightChild()) {
             super.addRightChild(node);
             return;
