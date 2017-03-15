@@ -49,6 +49,8 @@ public class Dictionary {
                 return new RedBlackTree<>();
             case "AVL":
                 return new AVLTree<>();
+            case "Splay":
+                return new SplayTree<>();
         }
 
         throw new InvalidTreeException();

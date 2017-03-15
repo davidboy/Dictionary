@@ -87,6 +87,10 @@ public abstract class AbstractBinaryTreeNode<K extends Comparable<K>, V> {
         }
     }
 
+    protected void raiseOneLevel() {
+        getParent().rotateToRaise(this);
+    }
+
     protected void rotateToRaise(AbstractBinaryTreeNode<K, V> n) {
         if (n.isLeftChild()) {
             rotateRight();
@@ -129,6 +133,20 @@ public abstract class AbstractBinaryTreeNode<K extends Comparable<K>, V> {
         AbstractBinaryTreeNode<K, V> temp = getRightChild().getLeftChild();
         getRightChild().setLeftChild(this);
         this.setRightChild(temp);
+    }
+
+    protected boolean isOutsideGrandchild() {
+        AbstractBinaryTreeNode<K, V> grandparent = getParent().getParent();
+
+        if (grandparent.hasLeftChild() && grandparent.getLeftChild().getLeftChild() == this) {
+            return true;
+        }
+
+        if (grandparent.hasRightChild() && grandparent.getRightChild().getRightChild() == this) {
+            return true;
+        }
+
+        return false;
     }
 
     public LinkedList<Entry<K, V>> getEntries() {

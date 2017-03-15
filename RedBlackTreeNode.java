@@ -92,20 +92,6 @@ public class RedBlackTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTr
         }
     }
 
-    private boolean isOutsideGrandchild() {
-        AbstractBinaryTreeNode<K, V> grandparent = getParent().getParent();
-
-        if (grandparent.hasLeftChild() && grandparent.getLeftChild().getLeftChild() == this) {
-            return true;
-        }
-
-        if (grandparent.hasRightChild() && grandparent.getRightChild().getRightChild() == this) {
-            return true;
-        }
-
-        return false;
-    }
-
     private boolean hasGrandparent() {
         return !isHead() && !getParent().isHead();
     }
