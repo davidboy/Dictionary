@@ -10,6 +10,14 @@ public class RedBlackTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTr
         this.isRed = isRed;
     }
 
+    private void toggleColor() {
+        isRed = !isRed;
+    }
+
+    public void makeBlack() {
+        isRed = false;
+    }
+
     @Override
     public void addChild(AbstractBinaryTreeNode<K, V> node) {
         flipIfNecessary();
@@ -22,7 +30,7 @@ public class RedBlackTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTr
         super.setLeftChild(childNode);
 
         if (childNode != null) {
-            ((RedBlackTreeNode<K, V>) childNode).checkForRedRed();
+            ((RedBlackTreeNode<K, V>) childNode).ensureBalance();
         }
     }
 
@@ -31,7 +39,7 @@ public class RedBlackTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTr
         super.setRightChild(childNode);
 
         if (childNode != null) {
-            ((RedBlackTreeNode<K, V>) childNode).checkForRedRed();
+            ((RedBlackTreeNode<K, V>) childNode).ensureBalance();
         }
     }
 
@@ -59,15 +67,8 @@ public class RedBlackTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTr
         return !isRed && hasLeftChild() && hasRightChild() && leftChild.isRed && rightChild.isRed;
     }
 
-    private void toggleColor() {
-        isRed = !isRed;
-    }
-    public void makeBlack() {
-        isRed = false;
-    }
-
-    private void checkForRedRed() {
-        if (!hasGrandparent()) {
+    private void ensureBalance() {
+        if (isHead() || getParent().isHead()) {
             return;
         }
 
@@ -75,7 +76,7 @@ public class RedBlackTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTr
         RedBlackTreeNode<K, V> grandparent = (RedBlackTreeNode<K, V>) parent.getParent();
 
         if (!isRed || !parent.isRed) {
-            parent.checkForRedRed();
+            parent.ensureBalance();
             return;
         }
 
@@ -90,10 +91,6 @@ public class RedBlackTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTr
             parent.rotateToRaise(this);
             grandparent.rotateToRaise(this);
         }
-    }
-
-    private boolean hasGrandparent() {
-        return !isHead() && !getParent().isHead();
     }
 
     @Override
