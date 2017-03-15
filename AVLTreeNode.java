@@ -43,13 +43,9 @@ public class AVLTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTreeNod
             ((AVLTreeNode) getParent()).ensureBalance();
         }
     }
-    
+
     private void rebalance() {
-        if (!hasLeftChild()) {
-            rotateLeft();
-        } else if (!hasRightChild()) {
-            rotateRight();
-        } else if (isWeightedLeft()) {
+        if (isWeightedLeft()) {
             if (((AVLTreeNode) getLeftChild()).isWeightedRight()) {
                 getLeftChild().rotateLeft();
             }
