@@ -81,6 +81,16 @@ public class LinkedBinaryTreeNode<K extends Comparable<K>, V> extends AbstractBi
     }
 
     @Override
+    public void setKey(K key) {
+        this.key = key;
+    }
+
+    @Override
+    public void setValue(V value) {
+        this.value = value;
+    }
+
+    @Override
     public boolean isRightChild() {
         return parent.rightChild == this;
     }

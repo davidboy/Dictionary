@@ -11,6 +11,14 @@ public abstract class AbstractBinaryTree<K extends Comparable<K>, V> {
         }
     }
 
+    public void delete(K keyToDelete) {
+        if (head == null) {
+            return;
+        }
+
+        head.delete(keyToDelete);
+    }
+
     public V get(K desiredKey) {
         if (head == null) {
             return null;

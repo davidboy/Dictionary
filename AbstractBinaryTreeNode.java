@@ -24,6 +24,9 @@ public abstract class AbstractBinaryTreeNode<K extends Comparable<K>, V> {
     abstract public K getKey();
     abstract public V getValue();
 
+    abstract protected void setKey(K key);
+    abstract protected void setValue(V value);
+
     abstract public boolean isHead();
     protected void makeHead() {
         tree.setHead(this);
@@ -49,18 +52,40 @@ public abstract class AbstractBinaryTreeNode<K extends Comparable<K>, V> {
         }
     }
 
-    public V findValue(K key) {
+    private AbstractBinaryTreeNode<K, V> findNode(K key) {
         if (getKey().equals(key)) {
-            return getValue();
+            return this;
         }
 
         if (hasLeftChild() && key.compareTo(getKey()) <= 0) {
-            return getLeftChild().findValue(key);
+            return getLeftChild().findNode(key);
         } else if (hasRightChild() && key.compareTo(getKey()) > 0) {
-            return getRightChild().findValue(key);
+            return getRightChild().findNode(key);
         }
 
         return null;
+    }
+
+    public V findValue(K key) {
+        AbstractBinaryTreeNode<K, V> node = findNode(key);
+
+        if (node == null) {
+            return null;
+        } else {
+            return node.getValue();
+        }
+    }
+
+
+    public void delete(K key) {
+        AbstractBinaryTreeNode<K, V> node = findNode(key);
+
+        if (node == null) {
+            // TODO: handle error
+            throw new RuntimeException("DOOM");
+        } else {
+            node.delete();
+        }
     }
 
     public void addChild(AbstractBinaryTreeNode<K, V> node) {
@@ -188,6 +213,46 @@ public abstract class AbstractBinaryTreeNode<K extends Comparable<K>, V> {
         }
 
         return results;
+    }
+
+    private void delete() {
+        if (!hasLeftChild() && !hasRightChild()) {
+            if (isHead()) {
+                tree.setHead(null);
+            } else {
+                getParent().replaceChild(this, null);
+            }
+        } else if (hasLeftChild() && !hasRightChild()) {
+            getParent().replaceChild(this, getLeftChild());
+        } else if (hasRightChild() && !hasLeftChild()) {
+            getParent().replaceChild(this, getRightChild());
+        } else {
+            AbstractBinaryTreeNode<K, V> successor = getLeftChild().getLargestNode();
+
+            this.setKey(successor.getKey());
+            this.setValue(successor.getValue());
+
+            successor.delete();
+        }
+    }
+
+    private void replaceChild(AbstractBinaryTreeNode<K, V> oldChild, AbstractBinaryTreeNode<K, V> newChild) {
+        if (hasLeftChild() && getLeftChild().equals(oldChild)) {
+            setLeftChild(newChild);
+        } else if (hasRightChild() && getRightChild().equals(oldChild)) {
+            setRightChild(newChild);
+        } else {
+            // TODO: handle error
+            throw new RuntimeException("DOOM");
+        }
+    }
+
+    protected AbstractBinaryTreeNode<K, V> getLargestNode() {
+        if (!hasRightChild()) {
+            return this;
+        } else {
+            return getRightChild().getLargestNode();
+        }
     }
 
     public void printDebugView() {

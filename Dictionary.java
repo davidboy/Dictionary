@@ -25,6 +25,10 @@ public class Dictionary {
         existingDefinitions.add(newDefinition);
     }
 
+    public void deleteWord(String word) {
+        definitions.delete(word);
+    }
+
     public LinkedList<String> getDefinitions(String word) {
         return definitions.get(word);
     }

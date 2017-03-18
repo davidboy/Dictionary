@@ -53,6 +53,9 @@ public class CommandRunner {
             case "help":
                 printHelp();
                 break;
+            case "delete":
+                processDeleteCommand(parts);
+                break;
             case "quit":
                 throw new AppQuitException();
         }
@@ -117,10 +120,19 @@ public class CommandRunner {
         }
     }
 
+    private void processDeleteCommand(String[] commandParts) throws InvalidCommandException {
+        if (commandParts.length != 2) {
+            throw new InvalidCommandException();
+        }
+
+        dictionary.deleteWord(commandParts[1]);
+    }
+
     private void printHelp() {
         System.out.println("Commands available: ");
 
         System.out.println("\tadd <word> <definition>");
+        System.out.println("\tdelete <word>");
         System.out.println("\tfind <word>");
         System.out.println("\tlist");
         System.out.println("\tlist <begin word> <end word>");
