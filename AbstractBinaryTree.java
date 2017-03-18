@@ -11,7 +11,7 @@ public abstract class AbstractBinaryTree<K extends Comparable<K>, V> {
         }
     }
 
-    public void delete(K keyToDelete) {
+    public void delete(K keyToDelete) throws NodeNotFoundException {
         if (head == null) {
             return;
         }

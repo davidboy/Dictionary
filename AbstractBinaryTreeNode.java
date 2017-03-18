@@ -77,12 +77,12 @@ public abstract class AbstractBinaryTreeNode<K extends Comparable<K>, V> {
     }
 
 
-    public void delete(K key) {
+    public void delete(K key) throws NodeNotFoundException {
         AbstractBinaryTreeNode<K, V> node = findNode(key);
 
         if (node == null) {
             // TODO: handle error
-            throw new RuntimeException("DOOM");
+            throw new NodeNotFoundException();
         } else {
             node.delete();
         }
@@ -215,7 +215,7 @@ public abstract class AbstractBinaryTreeNode<K extends Comparable<K>, V> {
         return results;
     }
 
-    private void delete() {
+    protected void delete() {
         if (!hasLeftChild() && !hasRightChild()) {
             if (isHead()) {
                 tree.setHead(null);
@@ -241,9 +241,6 @@ public abstract class AbstractBinaryTreeNode<K extends Comparable<K>, V> {
             setLeftChild(newChild);
         } else if (hasRightChild() && getRightChild().equals(oldChild)) {
             setRightChild(newChild);
-        } else {
-            // TODO: handle error
-            throw new RuntimeException("DOOM");
         }
     }
 

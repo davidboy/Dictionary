@@ -15,6 +15,8 @@ public class CommandRunner {
     }
 
     public void processCommandFile(String fileLocation) throws AppQuitException {
+        System.out.println("Processing " + fileLocation);
+
         try (BufferedReader br = new BufferedReader(new FileReader(fileLocation))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -125,7 +127,11 @@ public class CommandRunner {
             throw new InvalidCommandException();
         }
 
-        dictionary.deleteWord(commandParts[1]);
+        try {
+            dictionary.deleteWord(commandParts[1]);
+        } catch (NodeNotFoundException e) {
+            System.out.println("Error: that word isn't in the dictionary, so it can't be deleted.");
+        }
     }
 
     private void printHelp() {

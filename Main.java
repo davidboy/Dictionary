@@ -31,7 +31,7 @@ public class Main {
             }
         }
 
-        System.out.println("Done processing command files.  Enter custom commands:");
+        System.out.println("Done processing command files.  You can now enter custom commands (type help for a list of commands, or quit to exit the program)");
         Scanner consoleInput = new Scanner(System.in);
         while (true) {
             System.out.print("> ");

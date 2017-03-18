@@ -34,6 +34,22 @@ public class AVLTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTreeNod
         }
     }
 
+    @Override
+    protected void delete() {
+        AVLTreeNode<K, V> nodeToRebalance;
+
+        if (hasRightChild() && hasLeftChild()) {
+            nodeToRebalance = (AVLTreeNode<K, V>) getLeftChild().getLargestNode();
+        } else {
+            nodeToRebalance = (AVLTreeNode<K, V>) getParent();
+        }
+
+        super.delete();
+        if (nodeToRebalance != null) {
+            nodeToRebalance.ensureBalance();
+        }
+    }
+
     private void ensureBalance() {
         if (Math.abs(getBalanceFactor()) > 1) {
             rebalance();

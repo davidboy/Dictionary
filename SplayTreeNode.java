@@ -17,6 +17,16 @@ public class SplayTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTreeN
         return result;
     }
 
+    @Override
+    protected void delete() {
+        SplayTreeNode<K, V> parent = (SplayTreeNode<K, V>) getParent();
+
+        super.delete();
+        if (parent != null) {
+            parent.raiseToRoot();
+        }
+    }
+
     private void raiseToRoot() {
         while (!isHead()) {
             if (getParent().isHead()) {
