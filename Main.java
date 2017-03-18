@@ -39,7 +39,7 @@ public class Main {
             try {
                 commandParser.processCommand(consoleInput.nextLine());
             } catch (InvalidCommandException e) {
-                System.out.println("Error: invalid command encountered.");
+                System.out.println(e.getMessage());
             } catch (AppQuitException | NoSuchElementException e) {
                 return;
             }
@@ -49,8 +49,9 @@ public class Main {
     private void printValidTrees() {
         System.out.println("Valid trees: ");
         System.out.println("\tBST - Binary Search Tree");
-        System.out.println("\t RB - Red Black Tree");
-        System.out.println("\t AVL - AVL Tree");
+        System.out.println("\tRB - Red Black Tree");
+        System.out.println("\tAVL - AVL Tree");
+        System.out.println("\tSplay - Splay Tree");
     }
 
     public static void main(String[] args) {

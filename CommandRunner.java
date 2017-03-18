@@ -23,7 +23,7 @@ public class CommandRunner {
                 try {
                     processCommand(line);
                 } catch (InvalidCommandException e) {
-                    System.out.println("Error: invalid command encountered.");
+                    System.out.println("Skipping invalid command: " + line);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -34,7 +34,7 @@ public class CommandRunner {
     }
 
     public void processCommand(String command) throws InvalidCommandException, AppQuitException {
-        String[] parts = command.split(" ");
+        String[] parts = command.split("\\s+");
 
         switch (parts[0].toLowerCase()) {
             case "add":
@@ -64,6 +64,10 @@ public class CommandRunner {
     }
 
     private void processAddCommand(String[] commandParts) throws InvalidCommandException {
+        if (commandParts.length < 3) {
+            throw new InvalidCommandException(CommandType.ADD);
+        }
+
         String word = commandParts[1];
         String definition = String.join(" ", Arrays.copyOfRange(commandParts, 2, commandParts.length));
 
@@ -96,7 +100,7 @@ public class CommandRunner {
 
     private void processFindCommand(String[] commandParts) throws InvalidCommandException {
         if (commandParts.length != 2) {
-            throw new InvalidCommandException();
+            throw new InvalidCommandException(CommandType.FIND);
         }
 
         displayDefinitions(commandParts[1]);
@@ -108,13 +112,13 @@ public class CommandRunner {
         } else if (commandParts.length == 3) {
             displayDefinitions(dictionary.getWordsBetween(commandParts[1], commandParts[2]));
         } else {
-            throw new InvalidCommandException();
+            throw new InvalidCommandException(CommandType.LIST);
         }
     }
 
     private void processLoadCommand(String[] commandParts) throws InvalidCommandException, AppQuitException {
         if (commandParts.length <= 1) {
-            throw new InvalidCommandException();
+            throw new InvalidCommandException(CommandType.LOAD);
         }
 
         for (int i = 1; i < commandParts.length; i++) {
@@ -124,7 +128,7 @@ public class CommandRunner {
 
     private void processDeleteCommand(String[] commandParts) throws InvalidCommandException {
         if (commandParts.length != 2) {
-            throw new InvalidCommandException();
+            throw new InvalidCommandException(CommandType.DELETE);
         }
 
         try {
