@@ -1,7 +1,6 @@
 /**
  * @author David Reed
  */
-
 public enum CommandType {
     ADD, DELETE, FIND, LIST, LOAD, TREE;
 

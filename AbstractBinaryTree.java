@@ -1,3 +1,6 @@
+/**
+ * @author David Reed
+ */
 public abstract class AbstractBinaryTree<K extends Comparable<K>, V> {
     private AbstractBinaryTreeNode<K, V> head;
 
