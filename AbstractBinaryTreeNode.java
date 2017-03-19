@@ -52,7 +52,7 @@ public abstract class AbstractBinaryTreeNode<K extends Comparable<K>, V> {
         }
     }
 
-    private AbstractBinaryTreeNode<K, V> findNode(K key) {
+    protected AbstractBinaryTreeNode<K, V> findNode(K key) {
         if (getKey().equals(key)) {
             return this;
         }

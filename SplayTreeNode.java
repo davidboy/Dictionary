@@ -7,8 +7,8 @@ public class SplayTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTreeN
     }
 
     @Override
-    public V findValue(K key) {
-        V result = super.findValue(key);
+    protected AbstractBinaryTreeNode<K, V> findNode(K key) {
+        SplayTreeNode<K, V> result = (SplayTreeNode<K, V>) super.findNode(key);
 
         if (getKey().equals(key)) {
             raiseToRoot();
@@ -16,7 +16,6 @@ public class SplayTreeNode<K extends Comparable<K>, V> extends LinkedBinaryTreeN
 
         return result;
     }
-
     @Override
     protected void delete() {
         SplayTreeNode<K, V> parent = (SplayTreeNode<K, V>) getParent();
