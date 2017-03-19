@@ -86,7 +86,7 @@ public class CommandRunner {
 
     private void displayDefinitions(String word, LinkedList<String> definitions) {
         if (definitions == null) {
-            System.out.println("Error: no definitions found for " + word);
+            System.out.println("No definitions found for " + word);
             return;
         }
 
