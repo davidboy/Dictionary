@@ -18,4 +18,9 @@ public class RedBlackTree<K extends Comparable<K>, V> extends AbstractBinaryTree
 
         ((RedBlackTreeNode<K, V>) getHead()).makeBlack();
     }
+
+    @Override
+    public void delete(K key) throws DeleteNotImplementedException {
+        throw new DeleteNotImplementedException();
+    }
 }

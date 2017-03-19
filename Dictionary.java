@@ -25,7 +25,7 @@ public class Dictionary {
         existingDefinitions.add(newDefinition);
     }
 
-    public void deleteWord(String word) throws NodeNotFoundException {
+    public void deleteWord(String word) throws NodeNotFoundException, DeleteNotImplementedException {
         definitions.delete(word);
     }
 

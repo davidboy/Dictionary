@@ -134,7 +134,9 @@ public class CommandRunner {
         try {
             dictionary.deleteWord(commandParts[1]);
         } catch (NodeNotFoundException e) {
-            System.out.println("Error: that word isn't in the dictionary, so it can't be deleted.");
+            System.out.println("That word isn't in the dictionary, so it can't be deleted.");
+        } catch (DeleteNotImplementedException e) {
+            System.out.println("Delete operation not implemented for red black trees.");
         }
     }
 
